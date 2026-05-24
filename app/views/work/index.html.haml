@@ -8,6 +8,16 @@
     prompt: "Выберите тему",
     onchange: "this.form.submit()"
 
+.image_display.row
+  .col-md-1.img-left-side
+    %h3
+      %i.fa.fa-chevron-circle-left
+  .col-md-10.img-center
+    %img{:alt => @images.first.description, :src => asset_path(@images.first.file_name)}
+  .col-md-1.img-right-side
+    %h3
+      %i.fa.fa-chevron-circle-right
+
 -# Таблица с изображениями
 %table.table
   %thead
@@ -20,19 +30,16 @@
       %th Avg Rating
       %th Your Rating
   %tbody
-    - @images.each do |image|
-      %tr
-        %td= image.id
-        %td
-          - if image.file_name.present?
-            = image_tag asset_path("pictures/#{image.file_name}"), width: 120
-        %td= image.description
-        %td= image.task.title
-        %td= image.task.theme.name
-        %td= image.average_rating
-        %td
-          - existing_rating = image.expert_ratings.find_by(user: current_user)
-          = form_with(model: existing_rating || image.expert_ratings.build(user: current_user), url: expert_ratings_path, remote: true) do |f|
-            = f.hidden_field :image_id, value: image.id
-            = f.number_field :rating, value: existing_rating&.rating, min: 1, max: 10, style: "width: 50px;"
-            = f.submit "OK", class: "btn btn-sm btn-primary"
+  - @images.each do |image|
+    %tr
+      %td= image.id
+      %td= image.description
+      %td= image.task.title
+      %td= image.task.theme.name
+      %td= image.average_rating
+      %td
+        - existing_rating = image.expert_ratings.find_by(user: current_user)
+        = form_with(model: existing_rating || image.expert_ratings.build(user: current_user), url: expert_ratings_path, remote: true) do |f|
+          = f.hidden_field :image_id, value: image.id
+          = f.number_field :rating, value: existing_rating&.rating, min: 1, max: 10, style: "width: 50px;"
+          = f.submit "OK", class: "btn btn-sm btn-primary"

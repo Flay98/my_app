@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   get 'work', to: 'work#index'
   get 'choose_theme', to: 'work#choose_theme'
   post 'display_theme', to: 'work#display_theme'
+  namespace :api do
+    get 'next_image', to: 'api#next_image'
+    get 'prev_image', to: 'api#prev_image'
+  end
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
