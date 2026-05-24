@@ -1,0 +1,12 @@
+- content_for :title, "Editing expert rating"
+
+%h1 Editing expert rating
+
+= render "form", expert_rating: @expert_rating
+
+%br
+
+%div
+  = link_to "Show this expert rating", @expert_rating
+  |
+  = link_to "Back to expert ratings", expert_ratings_path

@@ -1,0 +1,13 @@
+%p{style: "color: green"}= notice
+
+- content_for :title, "Expert ratings"
+
+%h1 Expert ratings
+
+%div{id: "expert_ratings"}
+  - @expert_ratings.each do |expert_rating|
+    = render expert_rating
+    %p
+      = link_to "Show this expert rating", expert_rating
+
+= link_to "New expert rating", new_expert_rating_path

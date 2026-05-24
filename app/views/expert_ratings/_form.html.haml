@@ -1,0 +1,23 @@
+= form_with(model: expert_rating) do |form|
+  - if expert_rating.errors.any?
+    %div{style: "color: red"}
+      %h2= "#{pluralize(expert_rating.errors.count, "error")} prohibited this expert_rating from being saved:"
+
+      %ul
+        - expert_rating.errors.each do |error|
+          %li= error.full_message
+
+  %div
+    = form.label :user_id, style: "display: block"
+    = form.text_field :user_id
+
+  %div
+    = form.label :image_id, style: "display: block"
+    = form.text_field :image_id
+
+  %div
+    = form.label :rating, style: "display: block"
+    = form.number_field :rating
+
+  %div
+    = form.submit

@@ -1,0 +1,10 @@
+%p{style: "color: green"}= notice
+
+= render @expert_rating
+
+%div
+  = link_to "Edit this expert rating", edit_expert_rating_path(@expert_rating)
+  |
+  = link_to "Back to expert ratings", expert_ratings_path
+
+  = button_to "Destroy this expert rating", @expert_rating, method: :delete
