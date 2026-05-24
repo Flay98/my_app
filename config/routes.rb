@@ -4,10 +4,14 @@ Rails.application.routes.draw do
   resources :tasks
   resources :themes
   resources :users
+  resources :expert_ratings, only: [:create]
   get "main/index"
   get "main/help"
   get "main/contacts"
   get "main/about"
+  get 'work', to: 'work#index'
+  get 'choose_theme', to: 'work#choose_theme'
+  post 'display_theme', to: 'work#display_theme'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

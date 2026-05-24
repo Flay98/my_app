@@ -1,9 +1,63 @@
-# This file should ensure the existence of records required to run the application in every environment (production,
-# development, test). The code here should be idempotent so that it can be executed at any point in every environment.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Example:
-#
-#   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
-#     MovieGenre.find_or_create_by!(name: genre_name)
-#   end
+# Очистка старых данных
+ExpertRating.destroy_all
+Image.destroy_all
+Task.destroy_all
+Theme.destroy_all
+User.destroy_all
+
+# Создание пользователей
+designer = User.create!(
+  username: "designer01",
+  email: "designer01@example.com",
+  first_name: "Иван",
+  last_name: "Дизайнер",
+  password_digest: "temporary"
+)
+
+expert = User.create!(
+  username: "expert01",
+  email: "expert01@example.com",
+  first_name: "Анна",
+  last_name: "Эксперт",
+  password_digest: "temporary"
+)
+
+# Создание тем
+mobile_theme = Theme.create!(name: "Mobile App Design", description: "Референсы для экранов мобильных приложений")
+landing_theme = Theme.create!(name: "Landing Page Design", description: "Референсы для лендингов и веб-страниц")
+branding_theme = Theme.create!(name: "Branding and Visual Identity", description: "Логотипы, фирменный стиль и айдентика")
+
+# Создание задач
+mobile_task = Task.create!(user: designer, theme: mobile_theme, title: "Подбор мобильных экранов", description: "Примеры экранов мобильного приложения")
+landing_task = Task.create!(user: designer, theme: landing_theme, title: "Подбор веб-референсов", description: "Примеры лендингов и веб-страниц")
+branding_task = Task.create!(user: designer, theme: branding_theme, title: "Подбор брендинга", description: "Примеры логотипов и визуального стиля")
+
+# Массив для изображений
+images = []
+
+# Mobile картинки
+(1..4).each do |i|
+  images << { task: mobile_task, file_name: "mobile_#{i}.jpg", description: "Мобильный экран #{i}" }
+end
+
+# Web/landing картинки
+(1..4).each do |i|
+  images << { task: landing_task, file_name: "web_#{i}.jpg", description: "Веб-референс #{i}" }
+end
+
+# Branding/Logo картинки
+(1..4).each do |i|
+  images << { task: branding_task, file_name: "logo_#{i}.jpg", description: "Логотип / айдентика #{i}" }
+end
+
+# Создание изображений
+created_images = images.map { |attrs| Image.create!(attrs) }
+
+# Присвоение оценок экспертами
+created_images.each_with_index do |image, index|
+  ExpertRating.create!(
+    user: expert,
+    image: image,
+    rating: 6 + index % 5  # рейтинг от 6 до 10 по циклу
+  )
+end
