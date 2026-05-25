@@ -26,11 +26,20 @@ module Api
 
       data = show_image(theme_id, new_index)
 
+      image = Image.find(data[:image_id])
+
+      image_url =
+        if image.photo.attached?
+          view_context.url_for(image.photo)
+        else
+          view_context.asset_path("pictures/#{data[:file]}")
+        end
+
       render json: {
         new_image_index: data[:index],
         name: data[:name],
         file: data[:file],
-        image_url: view_context.asset_path("pictures/#{data[:file]}"),
+        image_url: image_url,
         image_id: data[:image_id],
         user_valued: data[:user_valued],
         common_ave_value: data[:common_ave_value] || "Нет оценок",

@@ -64,3 +64,23 @@
 .rating-submit {
     margin-left: 8px;
 }
+
+.images-toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.per-page-form,
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.pagination-block {
+    margin-top: 20px;
+}

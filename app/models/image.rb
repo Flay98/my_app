@@ -4,7 +4,7 @@ class Image < ApplicationRecord
   has_many :expert_ratings, dependent: :destroy
   has_one :theme, through: :task
 
-  validates :file_name, presence: true
+  has_one_attached :photo
 
   scope :by_theme, ->(theme_id) {
     joins(task: :theme).where(tasks: { theme_id: theme_id })

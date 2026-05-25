@@ -8,16 +8,20 @@
           %li= error.full_message
 
   %div
-    = form.label :task_id, style: "display: block"
-    = form.text_field :task_id
+    = form.label :task_id, t(".task"), style: "display: block"
+    = form.collection_select :task_id, Task.all, :id, :title, prompt: true
 
   %div
-    = form.label :file_name, style: "display: block"
+    = form.label :photo, "Загрузить изображение", style: "display: block"
+    = form.file_field :photo
+
+  %div
+    = form.label :file_name, t(".file_name"), style: "display: block"
     = form.text_field :file_name
 
   %div
-    = form.label :description, style: "display: block"
+    = form.label :description, t(".description"), style: "display: block"
     = form.text_area :description
 
   %div
-    = form.submit
+    = form.submit t(".submit")

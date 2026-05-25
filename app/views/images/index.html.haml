@@ -1,5 +1,26 @@
 %h1= t(".title")
 
+.images-toolbar
+  %p
+    %strong= "#{t('.total_count')}:"
+    = @images_total_count
+
+  = form_with url: images_path, method: :get, local: true, class: "per-page-form" do |form|
+    = hidden_field_tag :sort, @sort
+    = form.label :per_page, t(".per_page")
+    = form.select :per_page,
+      options_for_select([["5", "5"], ["10", "10"], ["15", "15"]], @per_page),
+      {},
+      onchange: "this.form.submit()"
+
+  = form_with url: images_path, method: :get, local: true, class: "sort-form" do |form|
+    = hidden_field_tag :per_page, @per_page
+    = form.label :sort, t(".sort_by")
+    = form.select :sort,
+      options_for_select([[t(".sort_id_asc"), "id_asc"], [t(".sort_id_desc"), "id_desc"], [t(".sort_rating_asc"), "rating_asc"], [t(".sort_rating_desc"), "rating_desc"]], @sort),
+      {},
+      onchange: "this.form.submit()"
+
 %table.table
   %thead
     %tr
@@ -14,9 +35,13 @@
     - @images.each do |image|
       %tr
         %td= image.id
-        %td
-          - if image.file_name.present?
-            = image_tag asset_path("pictures/#{image.file_name}"), width: 120
+      %td
+        - if image.photo.attached?
+          = image_tag image.photo, width: 120
+        - elsif image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
+          = image_tag asset_path("pictures/#{image.file_name}"), width: 120
+        - else
+          %span Нет файла
         %td= image.description
         %td= image.task&.title
         %td= image.task&.theme&.name
@@ -26,7 +51,10 @@
           |
           = link_to t(".edit"), edit_image_path(image)
           |
-          = link_to t(".destroy"), image, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+          = link_to t(".destroy"), image, data: { turbo_method: :delete, turbo_confirm: t(".confirm") }
+
+.pagination-block
+  = paginate @images, params: { per_page: @per_page, sort: @sort }
 
 %p
   = link_to t(".new_image"), new_image_path

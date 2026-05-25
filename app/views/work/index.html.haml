@@ -25,11 +25,16 @@
       .image-card
         %h2.current-image-title= current_image.description
 
-        = image_tag asset_path("pictures/#{current_image.file_name}"),
-          class: "current-image",
-          alt: current_image.description,
-          data: { image_id: current_image.id }
-
+        - if current_image.photo.attached?
+          = image_tag current_image.photo,
+            class: "current-image",
+            alt: current_image.description,
+            data: { image_id: current_image.id }
+        - elsif current_image.file_name.present?
+          = image_tag asset_path("pictures/#{current_image.file_name}"),
+            class: "current-image",
+            alt: current_image.description,
+            data: { image_id: current_image.id }
         %p
           %strong "#{t('.theme')}:"
           %span.current-theme= current_image.task.theme.name

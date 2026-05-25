@@ -3,7 +3,29 @@ class ImagesController < ApplicationController
 
   # GET /images or /images.json
   def index
-    @images = Image.includes(task: :theme).all
+    @per_page = params[:per_page].presence_in(%w[5 10 15]) || "10"
+    @sort = params[:sort].presence_in(%w[id_asc id_desc rating_asc rating_desc]) || "id_asc"
+
+    images_query = Image
+                     .left_joins(:expert_ratings)
+                     .includes(task: :theme)
+                     .select("images.*, AVG(expert_ratings.rating) AS average_rating_value")
+                     .group("images.id")
+
+    images_query =
+      case @sort
+      when "id_desc"
+        images_query.order(id: :desc)
+      when "rating_asc"
+        images_query.order(Arel.sql("AVG(expert_ratings.rating) ASC NULLS LAST"))
+      when "rating_desc"
+        images_query.order(Arel.sql("AVG(expert_ratings.rating) DESC NULLS LAST"))
+      else
+        images_query.order(id: :asc)
+      end
+
+    @images = images_query.page(params[:page]).per(@per_page)
+    @images_total_count = Image.count
   end
 
   # GET /images/1 or /images/1.json
@@ -64,7 +86,7 @@ class ImagesController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def image_params
-      params.require(:image).permit(:task_id, :file_name, :description)
-    end
+  def image_params
+    params.require(:image).permit(:task_id, :file_name, :description, :photo)
+  end
 end
