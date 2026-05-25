@@ -8,5 +8,6 @@
  *= require image_show
  *= require auth
  *= require image_form
+ *= require main
  *= require_self
  */
