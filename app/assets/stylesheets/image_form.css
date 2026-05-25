@@ -1,0 +1,226 @@
+.image-form-page {
+    padding: 28px 0 44px;
+}
+
+.image-form-page__header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.image-form-page__title-block h1 {
+    margin: 0 0 8px;
+    color: #111827;
+    font-size: 32px;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+}
+
+.image-form-page__title-block p {
+    margin: 0;
+    max-width: 620px;
+    color: #6b7280;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.image-form-page__actions {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.image-form-page__secondary-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 38px;
+    padding: 0 14px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: #374151;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 800;
+}
+
+.image-form-page__secondary-link:hover {
+    background: #e5e7eb;
+    color: #111827;
+}
+
+.image-form-layout {
+    display: grid;
+    grid-template-columns: minmax(280px, 420px) 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.image-form-preview-card,
+.image-form-card {
+    border: 1px solid #e5e7eb;
+    border-radius: 20px;
+    background: #ffffff;
+    box-shadow: 0 12px 30px rgba(15, 23, 42, 0.08);
+}
+
+.image-form-preview-card {
+    padding: 20px;
+}
+
+.image-form-preview-card h2 {
+    margin: 0 0 14px;
+    color: #111827;
+    font-size: 20px;
+}
+
+.image-form-preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    overflow: hidden;
+    border-radius: 16px;
+    background: #f3f4f6;
+}
+
+.image-form-preview__image {
+    width: 100%;
+    max-height: 420px;
+    object-fit: contain;
+}
+
+.image-form-preview__placeholder {
+    width: calc(100% - 32px);
+    min-height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px dashed #cbd5e1;
+    border-radius: 16px;
+    background: #f8fafc;
+    color: #64748b;
+    font-weight: 700;
+    text-align: center;
+}
+
+.image-form-preview-card__hint {
+    margin-top: 14px;
+    padding: 12px 14px;
+    border-radius: 14px;
+    background: #eff6ff;
+    color: #1e40af;
+}
+
+.image-form-preview-card__hint p {
+    margin: 0;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.image-form-card {
+    padding: 24px;
+}
+
+.image-form {
+    display: grid;
+    gap: 18px;
+}
+
+.image-form__field {
+    display: grid;
+    gap: 8px;
+}
+
+.image-form__field label {
+    color: #374151;
+    font-size: 14px;
+    font-weight: 800;
+}
+
+.image-form__input,
+.image-form__textarea,
+.image-form__file {
+    width: 100%;
+    box-sizing: border-box;
+    border: 1px solid #d1d5db;
+    border-radius: 12px;
+    background: #ffffff;
+    color: #111827;
+    font-size: 15px;
+    outline: none;
+}
+
+.image-form__input,
+.image-form__file {
+    min-height: 44px;
+    padding: 10px 12px;
+}
+
+.image-form__textarea {
+    padding: 12px;
+    resize: vertical;
+}
+
+.image-form__input:focus,
+.image-form__textarea:focus,
+.image-form__file:focus {
+    border-color: #2563eb;
+    box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.12);
+}
+
+.image-form__actions {
+    margin-top: 4px;
+}
+
+.image-form__submit {
+    width: 100%;
+    min-height: 46px;
+    border: 0;
+    border-radius: 12px;
+    background: #2563eb;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 900;
+    cursor: pointer;
+    transition: background 0.15s ease, transform 0.15s ease;
+}
+
+.image-form__submit:hover {
+    background: #1d4ed8;
+    transform: translateY(-1px);
+}
+
+.image-form-errors {
+    padding: 14px 16px;
+    border: 1px solid #fecaca;
+    border-radius: 14px;
+    background: #fef2f2;
+    color: #991b1b;
+}
+
+.image-form-errors h2 {
+    margin: 0 0 8px;
+    font-size: 15px;
+}
+
+.image-form-errors ul {
+    margin: 0;
+    padding-left: 18px;
+}
+
+.image-form-errors li {
+    font-size: 14px;
+}
+
+@media (max-width: 860px) {
+    .image-form-page__header {
+        flex-direction: column;
+    }
+
+    .image-form-layout {
+        grid-template-columns: 1fr;
+    }
+}

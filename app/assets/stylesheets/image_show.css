@@ -62,3 +62,40 @@
         flex-direction: column;
     }
 }
+
+.image-show-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 42px;
+    padding: 0 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 800;
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease;
+}
+
+.image-show-button:hover {
+    transform: translateY(-1px);
+}
+
+.image-show-button--primary {
+    background: #2563eb;
+    color: #ffffff;
+}
+
+.image-show-button--primary:hover {
+    background: #1d4ed8;
+    color: #ffffff;
+}
+
+.image-show-button--secondary {
+    background: #f3f4f6;
+    color: #374151;
+}
+
+.image-show-button--secondary:hover {
+    background: #e5e7eb;
+    color: #111827;
+}

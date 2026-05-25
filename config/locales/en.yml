@@ -122,10 +122,12 @@ en:
 
     new:
       title: "New image"
+      subtitle: "Upload an image, select a task and add a description."
       back: "Back to images"
 
     edit:
       title: "Editing image"
+      subtitle: "Update the description, task or uploaded image."
       show: "Show image"
       back: "Back to images"
 
@@ -136,6 +138,13 @@ en:
 
     form:
       task: "Task"
+      photo: "Upload image"
       file_name: "File name"
       description: "Description"
       submit: "Save"
+      preview: "Preview"
+      no_preview: "No image selected yet"
+      preview_hint: "For new images, use file upload. File name is only needed for old asset images."
+      select_task: "Select task"
+      description_placeholder: "Briefly describe the image"
+      errors_title: "Please check the form"

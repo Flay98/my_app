@@ -53,12 +53,13 @@
 }
 
 .site-header__nav-link {
-    padding: 9px 11px;
+    padding: 9px 10px;
     border-radius: 10px;
     color: #4b5563;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 700;
+    white-space: nowrap;
     transition: background 0.15s ease, color 0.15s ease;
 }
 

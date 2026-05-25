@@ -1,27 +1,43 @@
-= form_with(model: image) do |form|
-  - if image.errors.any?
-    %div{style: "color: red"}
-      %h2= "#{pluralize(image.errors.count, "error")} prohibited this image from being saved:"
+.image-form-layout
+  .image-form-preview-card
+    %h2= t("images.form.preview", default: "Превью")
 
-      %ul
-        - image.errors.each do |error|
-          %li= error.full_message
+    .image-form-preview
+      - if image.persisted? && image.photo.attached?
+        = image_tag image.photo, class: "image-form-preview__image"
+      - elsif image.persisted? && image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
+        = image_tag asset_path("pictures/#{image.file_name}"), class: "image-form-preview__image"
+      - else
+        .image-form-preview__placeholder
+          %span= t("images.form.no_preview", default: "Изображение пока не выбрано")
 
-  %div
-    = form.label :task_id, t(".task"), style: "display: block"
-    = form.collection_select :task_id, Task.all, :id, :title, prompt: true
+    .image-form-preview-card__hint
+      %p= t("images.form.preview_hint", default: "Для новых изображений лучше использовать загрузку файла с устройства. Поле имени файла нужно только для старых картинок из assets.")
 
-  %div
-    = form.label :photo, "Загрузить изображение", style: "display: block"
-    = form.file_field :photo
+  .image-form-card
+    = form_with(model: image, class: "image-form") do |form|
+      - if image.errors.any?
+        .image-form-errors
+          %h2= t("images.form.errors_title", default: "Проверьте данные формы")
+          %ul
+            - image.errors.each do |error|
+              %li= error.full_message
 
-  %div
-    = form.label :file_name, t(".file_name"), style: "display: block"
-    = form.text_field :file_name
+      .image-form__field
+        = form.label :task_id, t("images.form.task")
+        = form.collection_select :task_id, Task.includes(:theme).order(:id), :id, :title, { prompt: t("images.form.select_task", default: "Выберите задачу") }, class: "image-form__input"
 
-  %div
-    = form.label :description, t(".description"), style: "display: block"
-    = form.text_area :description
+      .image-form__field
+        = form.label :photo, t("images.form.photo", default: "Загрузить изображение")
+        = form.file_field :photo, class: "image-form__file"
 
-  %div
-    = form.submit t(".submit")
+      .image-form__field
+        = form.label :file_name, t("images.form.file_name")
+        = form.text_field :file_name, class: "image-form__input", placeholder: "mobile_1.jpg"
+
+      .image-form__field
+        = form.label :description, t("images.form.description")
+        = form.text_area :description, class: "image-form__textarea", rows: 5, placeholder: t("images.form.description_placeholder", default: "Кратко опишите изображение")
+
+      .image-form__actions
+        = form.submit t("images.form.submit"), class: "image-form__submit"

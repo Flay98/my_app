@@ -1,12 +1,11 @@
-- content_for :title, "Editing image"
+.image-form-page
+  .image-form-page__header
+    .image-form-page__title-block
+      %h1= t(".title")
+      %p= t(".subtitle", default: "Измените описание, задачу или загруженное изображение.")
 
-%h1= t(".title")
+    .image-form-page__actions
+      = link_to t(".show"), @image, class: "image-form-page__secondary-link"
+      = link_to t(".back"), images_path, class: "image-form-page__secondary-link"
 
-= render "form", image: @image
-
-%br
-
-%div
-  = link_to t(".show"), @image
-  |
-  = link_to t(".back"), images_path
+  = render "form", image: @image

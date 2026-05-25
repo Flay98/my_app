@@ -31,5 +31,8 @@
         = @image.average_rating_text
 
   .image-show-actions
-    = link_to t("images.show.edit", default: "Редактировать"), edit_image_path(@image), class: "images-page__new-button"
-    = link_to t("images.show.back", default: "Назад к изображениям"), images_path, class: "image-card-item__link"
+    = link_to edit_image_path(@image), class: "image-show-button image-show-button--primary" do
+      = t("images.show.edit", default: "Редактировать")
+
+    = link_to images_path, class: "image-show-button image-show-button--secondary" do
+      = t("images.show.back", default: "Назад к изображениям")

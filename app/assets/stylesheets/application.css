@@ -7,5 +7,6 @@
  *= require images
  *= require image_show
  *= require auth
+ *= require image_form
  *= require_self
  */
