@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
-  before_action :require_sign_in, only: %i[show]
-  before_action :require_admin, only: %i[new create edit update destroy]
+  before_action :require_sign_in, only: %i[show new create edit update]
+  before_action :require_admin, only: %i[destroy]
   before_action :set_image, only: %i[show edit update destroy]
 
   # GET /images or /images.json

@@ -1,7 +1,7 @@
 .profile-page
   .profile-hero
     .profile-hero__avatar
-      = gravatar_for @user, size: 120
+      = avatar_for @user, size: 120
 
     .profile-hero__content
       %p.profile-hero__label= t("users.show.profile_label")
@@ -13,6 +13,8 @@
       .profile-hero__actions
         = link_to t("users.show.proceed_to_work"), work_path, class: "profile-button profile-button--primary"
         = link_to t("users.show.back_to_images"), images_path, class: "profile-button profile-button--secondary"
+        - if signed_in? && (current_user == @user || current_user.admin?)
+          = link_to t("users.show.edit_profile"), edit_user_path(@user), class: "profile-button profile-button--secondary"
 
   .profile-stats
     .profile-stat-card

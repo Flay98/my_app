@@ -94,6 +94,9 @@ en:
       password_confirmation: "Password confirmation"
       create_account: "Create account"
       errors_title: "Please check the form"
+      avatar: "Avatar"
+    show:
+      edit_profile: "Edit profile"
 
   work:
     index:

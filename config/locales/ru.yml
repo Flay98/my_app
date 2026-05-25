@@ -65,6 +65,7 @@ ru:
       password_confirmation: "Подтверждение пароля"
       create_account: "Создать аккаунт"
       errors_title: "Проверьте данные формы"
+      avatar: "Аватар"
     show:
       profile_label: "Профиль пользователя"
       email: "Email"
@@ -82,6 +83,7 @@ ru:
       theme: "Тема"
       task: "Задача"
       no_ratings: "Нет оценок"
+      edit_profile: "Редактировать профиль"
 
   work:
     index:

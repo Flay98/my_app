@@ -81,12 +81,12 @@
               = link_to edit_image_path(image), class: "image-card-item__icon-link", title: t(".edit") do
                 = image_tag "edit.png", alt: t(".edit"), class: "image-card-item__action-icon"
 
-              = link_to image,
-                class: "image-card-item__icon-link image-card-item__icon-link--danger",
-                title: t(".destroy"),
-                data: { turbo_method: :delete, turbo_confirm: t(".confirm") } do
-                = image_tag "bucket.png", alt: t(".destroy"), class: "image-card-item__action-icon"
-
+              - if current_user.admin?
+                = link_to image,
+                  class: "image-card-item__icon-link image-card-item__icon-link--danger",
+                  title: t(".destroy"),
+                  data: { turbo_method: :delete, turbo_confirm: t(".confirm") } do
+                  = image_tag "bucket.png", alt: t(".destroy"), class: "image-card-item__action-icon"
     .pagination-block
       = paginate @images, params: { per_page: @per_page, sort: @sort }
 

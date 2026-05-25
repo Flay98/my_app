@@ -2,6 +2,8 @@ class User < ApplicationRecord
   has_many :tasks, dependent: :destroy
   has_many :expert_ratings, dependent: :destroy
 
+  has_one_attached :avatar
+
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 

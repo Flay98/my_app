@@ -38,6 +38,10 @@
           = form.label :password_confirmation, t("users.form.password_confirmation")
           = form.password_field :password_confirmation, class: "auth-form__input", placeholder: "••••••••"
 
+        .auth-form__field
+          = form.label :avatar, t("users.form.avatar")
+          = form.file_field :avatar, class: "auth-form__input"
+
       .auth-form__actions
         = form.submit t("users.form.create_account"), class: "auth-form__submit"
 
