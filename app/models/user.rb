@@ -5,6 +5,20 @@ class User < ApplicationRecord
   before_save { self.email = email.downcase }
   before_create :create_remember_token
 
+  ROLES = %w[expert admin].freeze
+
+  before_validation :set_default_role, on: :create
+
+  validates :role, presence: true, inclusion: { in: ROLES }
+
+  def admin?
+    role == "admin"
+  end
+
+  def expert?
+    role == "expert"
+  end
+
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-]+(\.[a-z]+)*\.[a-z]+\z/i
 
   validates :username, presence: true,
@@ -34,5 +48,9 @@ class User < ApplicationRecord
 
   def create_remember_token
     self.remember_token = User.encrypt(User.new_remember_token)
+  end
+
+  def set_default_role
+    self.role ||= "expert"
   end
 end

@@ -8,6 +8,12 @@ module SessionsHelper
     self.current_user = user
   end
 
+  def require_admin
+    return if signed_in? && current_user.admin?
+
+    redirect_to root_path, alert: "Access denied"
+  end
+
   def current_user=(user)
     @current_user = user
   end

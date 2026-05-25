@@ -12,7 +12,8 @@ designer = User.create!(
   first_name: "Иван",
   last_name: "Дизайнер",
   password: "password",
-  password_confirmation: "password"
+  password_confirmation: "password",
+  role: "expert"
 )
 
 expert = User.create!(
@@ -21,7 +22,8 @@ expert = User.create!(
   first_name: "Анна",
   last_name: "Эксперт",
   password: "password",
-  password_confirmation: "password"
+  password_confirmation: "password",
+  role: "expert"
 )
 
 # Создание тем

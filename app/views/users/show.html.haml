@@ -7,6 +7,8 @@
       %p.profile-hero__label= t("users.show.profile_label")
       %h1= @user.username
       %p.profile-hero__email= @user.email
+      %p.profile-hero__role
+        = @user.role
 
       .profile-hero__actions
         = link_to t("users.show.proceed_to_work"), work_path, class: "profile-button profile-button--primary"

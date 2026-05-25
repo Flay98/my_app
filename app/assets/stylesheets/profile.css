@@ -240,3 +240,16 @@
         height: 180px;
     }
 }
+
+.profile-hero__role {
+    display: inline-flex;
+    margin: 0 0 18px;
+    padding: 5px 10px;
+    border-radius: 999px;
+    background: #eff6ff;
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+}
