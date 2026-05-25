@@ -1,6 +1,21 @@
 %header.site-header
   %nav.site-nav
-    = link_to "Home", root_path
-    = link_to "Help", main_help_path
-    = link_to "Contacts", main_contacts_path
-    = link_to "About", main_about_path
+    = link_to t(".home"), root_path
+    = link_to t(".work"), work_path
+    = link_to t(".help"), main_help_path
+    = link_to t(".contacts"), main_contacts_path
+    = link_to t(".about"), main_about_path
+
+    - if signed_in?
+      %span= current_user.email
+      = link_to t(".profile"), current_user
+      = link_to t(".sign_out"), signout_path, data: { turbo_method: :delete }
+    - else
+      = link_to t(".sign_in"), signin_path
+      = link_to t(".sign_up"), signup_path
+
+    %span.locale-switcher
+      = link_to "RU", url_for(locale: :ru)
+      |
+      = link_to "EN", url_for(locale: :en)
+      %strong= I18n.locale

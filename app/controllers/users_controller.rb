@@ -25,7 +25,8 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: "User was successfully created." }
+        sign_in @user
+        format.html { redirect_to work_path, notice: "Welcome to Task Tracker!" }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new, status: :unprocessable_content }
@@ -65,6 +66,6 @@ class UsersController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def user_params
-      params.require(:user).permit(:username, :email, :first_name, :last_name, :password_digest)
+      params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation)
     end
 end

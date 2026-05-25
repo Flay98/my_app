@@ -11,7 +11,8 @@ designer = User.create!(
   email: "designer01@example.com",
   first_name: "Иван",
   last_name: "Дизайнер",
-  password_digest: "temporary"
+  password: "password",
+  password_confirmation: "password"
 )
 
 expert = User.create!(
@@ -19,7 +20,8 @@ expert = User.create!(
   email: "expert01@example.com",
   first_name: "Анна",
   last_name: "Эксперт",
-  password_digest: "temporary"
+  password: "password",
+  password_confirmation: "password"
 )
 
 # Создание тем

@@ -8,24 +8,28 @@
           %li= error.full_message
 
   %div
-    = form.label :username, style: "display: block"
+    = form.label :username, t(".username"), style: "display: block"
     = form.text_field :username
 
   %div
-    = form.label :email, style: "display: block"
-    = form.text_field :email
+    = form.label :email, t(".email"), style: "display: block"
+    = form.email_field :email
 
   %div
-    = form.label :first_name, style: "display: block"
+    = form.label :first_name, t(".first_name"), style: "display: block"
     = form.text_field :first_name
 
   %div
-    = form.label :last_name, style: "display: block"
+    = form.label :last_name, t(".last_name"), style: "display: block"
     = form.text_field :last_name
 
   %div
-    = form.label :password_digest, style: "display: block"
-    = form.text_field :password_digest
+    = form.label :password, t(".password"), style: "display: block"
+    = form.password_field :password
 
   %div
-    = form.submit
+    = form.label :password_confirmation, t(".password_confirmation"), style: "display: block"
+    = form.password_field :password_confirmation
+
+  %div
+    = form.submit t(".create_account")

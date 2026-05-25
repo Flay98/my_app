@@ -1,0 +1,79 @@
+ru:
+  shared:
+    header:
+      home: "Главная"
+      work: "Рабочая область"
+      help: "Помощь"
+      contacts: "Контакты"
+      about: "О проекте"
+      sign_in: "Войти"
+      sign_up: "Регистрация"
+      sign_out: "Выйти"
+      profile: "Профиль"
+      current_language: "ru"
+
+  main:
+    index:
+      title: "Task Tracker"
+      description: "Учебное Rails-приложение для экспертной оценки дизайн-референсов."
+      proceed_to_work: "Перейти к оценке"
+      sign_up_now: "Зарегистрироваться"
+    help:
+      title: "Помощь"
+      description: "Здесь будет справочная информация по работе с приложением."
+    contacts:
+      title: "Контакты"
+      description: "Контактная информация учебного проекта."
+    about:
+      title: "О проекте"
+      description: "Это учебный курсовой проект на Ruby on Rails: трекер дизайн-задач с экспертной оценкой изображений."
+
+  sessions:
+    new:
+      title: "Вход"
+      email: "Email"
+      password: "Пароль"
+      submit: "Войти"
+
+  users:
+    form:
+      username: "Логин"
+      email: "Email"
+      first_name: "Имя"
+      last_name: "Фамилия"
+      password: "Пароль"
+      password_confirmation: "Подтверждение пароля"
+      create_account: "Создать аккаунт"
+    show:
+      email: "Email"
+      first_name: "Имя"
+      last_name: "Фамилия"
+      proceed_to_work: "Перейти к оценке"
+
+  work:
+    index:
+      title: "Рабочая область оценки"
+      choose_theme: "Выберите тему"
+      select_theme: "Выберите тему"
+      theme: "Тема"
+      task: "Задача"
+      average_rating: "Средняя оценка"
+      no_ratings: "Нет оценок"
+      rate_image: "Оцените изображение"
+      submit_rating: "OK"
+      no_images: "Выберите тему, чтобы увидеть изображения."
+
+  images:
+    index:
+      title: "Галерея изображений"
+      id: "ID"
+      image: "Изображение"
+      description: "Описание"
+      task: "Задача"
+      theme: "Тема"
+      avg_rating: "Средняя оценка"
+      actions: "Действия"
+      show: "Показать"
+      edit: "Редактировать"
+      destroy: "Удалить"
+      new_image: "Новое изображение"

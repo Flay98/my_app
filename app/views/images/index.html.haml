@@ -1,14 +1,15 @@
-%h1 Images Gallery
+%h1= t(".title")
 
 %table.table
   %thead
     %tr
-      %th ID
-      %th Image
-      %th Description
-      %th Task
-      %th Theme
-      %th Avg Rating
+      %th= t(".id")
+      %th= t(".image")
+      %th= t(".description")
+      %th= t(".task")
+      %th= t(".theme")
+      %th= t(".avg_rating")
+      %th= t(".actions")
   %tbody
     - @images.each do |image|
       %tr
@@ -17,6 +18,15 @@
           - if image.file_name.present?
             = image_tag asset_path("pictures/#{image.file_name}"), width: 120
         %td= image.description
-        %td= image.task.title
-        %td= image.task.theme.name
-        %td= image.average_rating
+        %td= image.task&.title
+        %td= image.task&.theme&.name
+        %td= image.average_rating_text
+        %td
+          = link_to t(".show"), image
+          |
+          = link_to t(".edit"), edit_image_path(image)
+          |
+          = link_to t(".destroy"), image, data: { turbo_method: :delete, turbo_confirm: "Are you sure?" }
+
+%p
+  = link_to t(".new_image"), new_image_path

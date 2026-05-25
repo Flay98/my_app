@@ -1,41 +1,18 @@
-# frozen_string_literal: true
-
 class WorkController < ApplicationController
   include WorkImage
 
-  before_action :set_current_user
+  before_action :require_sign_in
 
   def index
     @themes = Theme.all
-    @selected_theme_id = params[:theme_id] || session[:selected_theme_id]
+    @selected_theme_id = params[:theme_id].presence || Theme.first&.id
+    session[:selected_theme_id] = @selected_theme_id
 
-    if @selected_theme_id
-      @images = Image.by_theme(@selected_theme_id)
-    else
-      @images = Image.all
-    end
-  end
+    @images = Image.by_theme(@selected_theme_id).order(:id)
 
-  private
-
-  def set_current_user
-    # Берём первого пользователя из базы для теста
-    @current_user = User.first
-  end
-
-  # Добавляем helper_method, чтобы current_user был доступен в Haml
-  helper_method :current_user
-
-  def current_user
-    @current_user
-  end
-
-  def choose_theme
-    @themes = Theme.all.pluck(:name)
-    respond_to do |format|
-      format.html
-      format.js
-    end
+    @current_index = params[:index].to_i
+    @current_index = 0 if @current_index.negative?
+    @current_index = 0 if @current_index >= @images.length
   end
 
   def display_theme
@@ -44,5 +21,4 @@ class WorkController < ApplicationController
     session[:selected_theme_id] = theme_id
     image_data(params[:theme], data)
   end
-
 end

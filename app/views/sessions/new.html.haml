@@ -1,0 +1,13 @@
+%h1= t(".title")
+
+= form_with(url: signin_path, scope: :session, local: true) do |form|
+  %div
+    = form.label :email, t(".email")
+    = form.email_field :email
+
+  %div
+    = form.label :password, t(".password")
+    = form.password_field :password
+
+  %div
+    = form.submit t(".submit")

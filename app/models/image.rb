@@ -11,6 +11,10 @@ class Image < ApplicationRecord
   }
 
   def average_rating
-    expert_ratings.average(:rating)&.round(2) || 0
+    expert_ratings.average(:rating)&.round(2)
+  end
+
+  def average_rating_text
+    average_rating || "Нет оценок"
   end
 end

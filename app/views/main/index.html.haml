@@ -1,9 +1,8 @@
-%h1 Task Tracker
+%h1= t(".title")
 
-%p
-  Учебное Rails-приложение для экспертной оценки дизайн-референсов.
+%p= t(".description")
 
-%ul
-  %li= link_to "Help", main_help_path
-  %li= link_to "Contacts", main_contacts_path
-  %li= link_to "About", main_about_path
+- if signed_in?
+  = link_to t(".proceed_to_work"), work_path, class: "btn btn-lg btn-primary"
+- else
+  = link_to t(".sign_up_now"), signup_path, class: "btn btn-lg btn-primary"

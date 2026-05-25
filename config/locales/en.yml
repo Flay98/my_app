@@ -28,4 +28,81 @@
 #       enabled: "ON"
 
 en:
-  hello: "Hello world"
+  shared:
+    header:
+      home: "Home"
+      work: "Work"
+      help: "Help"
+      contacts: "Contacts"
+      about: "About"
+      sign_in: "Sign in"
+      sign_up: "Sign up"
+      sign_out: "Sign out"
+      profile: "Profile"
+      current_language: "en"
+
+  main:
+    index:
+      title: "Task Tracker"
+      description: "Educational Rails application for expert evaluation of design references."
+      proceed_to_work: "Proceed to work"
+      sign_up_now: "Sign up now"
+    help:
+      title: "Help"
+      description: "This page contains help information about the application."
+    contacts:
+      title: "Contacts"
+      description: "Contact information for the educational project."
+    about:
+      title: "About"
+      description: "This is an educational Ruby on Rails project: a design task tracker with expert image evaluation."
+
+  sessions:
+    new:
+      title: "Sign in"
+      email: "Email"
+      password: "Password"
+      submit: "Sign in"
+
+  users:
+    form:
+      username: "Username"
+      email: "Email"
+      first_name: "First name"
+      last_name: "Last name"
+      password: "Password"
+      password_confirmation: "Password confirmation"
+      create_account: "Create account"
+    show:
+      email: "Email"
+      first_name: "First name"
+      last_name: "Last name"
+      proceed_to_work: "Proceed to work"
+
+  work:
+    index:
+      title: "Work Area / Image Evaluation"
+      choose_theme: "Choose theme"
+      select_theme: "Choose theme"
+      theme: "Theme"
+      task: "Task"
+      average_rating: "Average rating"
+      no_ratings: "No ratings"
+      rate_image: "Rate image"
+      submit_rating: "OK"
+      no_images: "Choose a theme to see images."
+
+  images:
+    index:
+      title: "Images Gallery"
+      id: "ID"
+      image: "Image"
+      description: "Description"
+      task: "Task"
+      theme: "Theme"
+      avg_rating: "Average rating"
+      actions: "Actions"
+      show: "Show"
+      edit: "Edit"
+      destroy: "Destroy"
+      new_image: "New image"

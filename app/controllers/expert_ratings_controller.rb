@@ -21,16 +21,21 @@ class ExpertRatingsController < ApplicationController
 
   # POST /expert_ratings or /expert_ratings.json
   def create
-    @expert_rating = ExpertRating.new(expert_rating_params)
+    @expert_rating = ExpertRating.find_or_initialize_by(
+      user: current_user,
+      image_id: expert_rating_params[:image_id]
+    )
 
-    respond_to do |format|
-      if @expert_rating.save
-        format.html { redirect_to @expert_rating, notice: "Expert rating was successfully created." }
-        format.json { render :show, status: :created, location: @expert_rating }
-      else
-        format.html { render :new, status: :unprocessable_content }
-        format.json { render json: @expert_rating.errors, status: :unprocessable_content }
-      end
+    @expert_rating.rating = expert_rating_params[:rating]
+
+    if @expert_rating.save
+      redirect_to work_path(
+                    theme_id: params[:theme_id],
+                    index: params[:current_index]
+                  ), notice: "Rating was successfully saved."
+    else
+      redirect_to work_path(theme_id: params[:theme_id]),
+                  alert: @expert_rating.errors.full_messages.join(", ")
     end
   end
 
@@ -64,7 +69,7 @@ class ExpertRatingsController < ApplicationController
     end
 
     # Only allow a list of trusted parameters through.
-    def expert_rating_params
-      params.require(:expert_rating).permit(:user_id, :image_id, :rating)
-    end
+  def expert_rating_params
+    params.require(:expert_rating).permit(:image_id, :rating)
+  end
 end

@@ -1,45 +1,59 @@
-%h1 Work Area / Image Evaluation
+%h1= t(".title")
 
--# Селект для выбора темы
-%h2 Выберите тему
-= form_tag work_path, method: :get, remote: true do
+%h2= t(".choose_theme")
+
+= form_tag work_path, method: :get do
   = select_tag :theme_id,
     options_from_collection_for_select(@themes, :id, :name, @selected_theme_id),
-    prompt: "Выберите тему",
+    prompt: t(".select_theme"),
     onchange: "this.form.submit()"
 
-.image_display.row
-  .col-md-1.img-left-side
-    %h3
-      %i.fa.fa-chevron-circle-left
-  .col-md-10.img-center
-    %img{:alt => @images.first.description, :src => asset_path(@images.first.file_name)}
-  .col-md-1.img-right-side
-    %h3
-      %i.fa.fa-chevron-circle-right
+- if @images.any?
+  - current_image = @images[@current_index]
+  - existing_rating = current_image.expert_ratings.find_by(user: current_user)
 
--# Таблица с изображениями
-%table.table
-  %thead
-    %tr
-      %th ID
-      %th Image
-      %th Description
-      %th Task
-      %th Theme
-      %th Avg Rating
-      %th Your Rating
-  %tbody
-  - @images.each do |image|
-    %tr
-      %td= image.id
-      %td= image.description
-      %td= image.task.title
-      %td= image.task.theme.name
-      %td= image.average_rating
-      %td
-        - existing_rating = image.expert_ratings.find_by(user: current_user)
-        = form_with(model: existing_rating || image.expert_ratings.build(user: current_user), url: expert_ratings_path, remote: true) do |f|
-          = f.hidden_field :image_id, value: image.id
-          = f.number_field :rating, value: existing_rating&.rating, min: 1, max: 10, style: "width: 50px;"
-          = f.submit "OK", class: "btn btn-sm btn-primary"
+  .work-viewer{
+    data: {
+      current_index: @current_index,
+      theme_id: @selected_theme_id,
+      length: @images.length
+    }
+  }
+    .work-controls
+      %button.img-left-side{type: "button"} ←
+
+      .image-card
+        %h2.current-image-title= current_image.description
+
+        = image_tag asset_path("pictures/#{current_image.file_name}"),
+          class: "current-image",
+          alt: current_image.description,
+          data: { image_id: current_image.id }
+
+        %p
+          %strong "#{t('.theme')}:"
+          %span.current-theme= current_image.task.theme.name
+
+        %p
+          %strong "#{t('.task')}:"
+          %span.current-task= current_image.task.title
+
+        %p
+          %strong "#{t('.average_rating')}:"
+          %span.current-average= current_image.average_rating_text
+
+        .rating-block
+          %h3= t(".rate_image")
+
+          = form_with(url: expert_ratings_path, scope: :expert_rating, method: :post, local: true) do |f|
+            = f.hidden_field :image_id, value: current_image.id, class: "rating-image-id"
+            = hidden_field_tag :theme_id, @selected_theme_id
+            = hidden_field_tag :current_index, 0, class: "rating-current-index"
+
+            = f.number_field :rating, value: existing_rating&.rating, min: 1, max: 10, class: "rating-input"
+            = f.submit "OK", class: "rating-submit"
+
+      %button.img-right-side{type: "button"} →
+
+- else
+  %p= t(".no_images")
