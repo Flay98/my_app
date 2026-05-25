@@ -1,6 +1,6 @@
 class ImagesController < ApplicationController
   before_action :require_sign_in, except: %i[index show]
-  before_action :set_image, only: %i[edit update destroy]
+  before_action :set_image, only: %i[show edit update destroy]
 
   # GET /images or /images.json
   def index
@@ -27,6 +27,16 @@ class ImagesController < ApplicationController
 
     @images = images_query.page(params[:page]).per(@per_page)
     @images_total_count = Image.count
+
+    @image_work_indices = {}
+
+    theme_ids = @images.map { |image| image.task&.theme_id }.compact.uniq
+
+    theme_ids.each do |theme_id|
+      Image.by_theme(theme_id).order(:id).pluck(:id).each_with_index do |image_id, index|
+        @image_work_indices[image_id] = index
+      end
+    end
   end
 
   # GET /images/1 or /images/1.json

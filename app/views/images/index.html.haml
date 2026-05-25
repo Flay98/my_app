@@ -32,7 +32,13 @@
   - if @images.any?
     .images-grid
       - @images.each do |image|
-        .image-card-item
+        - clickable = signed_in? && image.task&.theme_id.present?
+        - work_url = clickable ? work_path(theme_id: image.task.theme_id, index: @image_work_indices[image.id] || 0) : nil
+
+        %div{
+          class: "image-card-item#{' image-card-item--clickable' if clickable}",
+          data: (clickable ? { href: work_url } : {})
+        }
           .image-card-item__preview
             - if image.photo.attached?
               = image_tag image.photo, class: "image-card-item__image"

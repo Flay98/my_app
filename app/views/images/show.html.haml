@@ -1,10 +1,35 @@
 %p{style: "color: green"}= notice
 
-= render @image
+.image-show-page
+  %h1= t("images.show.title", default: "Изображение")
 
-%div
-  = link_to "Edit this image", edit_image_path(@image)
-  |
-  = link_to "Back to images", images_path
+  .image-show-card
+    .image-show-card__preview
+      - if @image.photo.attached?
+        = image_tag @image.photo, class: "image-show-card__image"
+      - elsif @image.file_name.present? && Rails.application.assets.find_asset("pictures/#{@image.file_name}").present?
+        = image_tag asset_path("pictures/#{@image.file_name}"), class: "image-show-card__image"
+      - else
+        .image-show-card__placeholder
+          = t("images.index.no_file", default: "Нет файла")
 
-  = button_to "Destroy this image", @image, method: :delete
+    .image-show-card__content
+      %p
+        %strong= "#{t('images.index.description', default: 'Описание')}:"
+        = @image.description.presence || t("images.index.no_description", default: "Без описания")
+
+      %p
+        %strong= "#{t('images.index.task', default: 'Задача')}:"
+        = @image.task&.title || "—"
+
+      %p
+        %strong= "#{t('images.index.theme', default: 'Тема')}:"
+        = @image.task&.theme&.name || "—"
+
+      %p
+        %strong= "#{t('images.index.avg_rating', default: 'Средняя оценка')}:"
+        = @image.average_rating_text
+
+  .image-show-actions
+    = link_to t("images.show.edit", default: "Редактировать"), edit_image_path(@image), class: "images-page__new-button"
+    = link_to t("images.show.back", default: "Назад к изображениям"), images_path, class: "image-card-item__link"
