@@ -7,12 +7,14 @@
       %p.profile-hero__label= t("users.show.profile_label")
       %h1= @user.username
       %p.profile-hero__email= @user.email
+
       %p.profile-hero__role
         = @user.role
 
       .profile-hero__actions
         = link_to t("users.show.proceed_to_work"), work_path, class: "profile-button profile-button--primary"
         = link_to t("users.show.back_to_images"), images_path, class: "profile-button profile-button--secondary"
+
         - if signed_in? && (current_user == @user || current_user.admin?)
           = link_to t("users.show.edit_profile"), edit_user_path(@user), class: "profile-button profile-button--secondary"
 
@@ -36,23 +38,26 @@
     - if @recent_ratings.any?
       .profile-ratings-list
         - @recent_ratings.each do |rating|
+          - image = rating.image
+          - image_src = image_source_for(image)
+
           .profile-rating-item
             .profile-rating-item__preview
-              - image = rating.image
-                - image_src = image_source_for(image)
-                - if image_src.present?
-                  = image_tag image_src, class: "profile-rating-item__image"
-                - else
-                  .profile-rating-item__placeholder= t("users.show.no_image")
+              - if image_src.present?
+                = image_tag image_src, class: "profile-rating-item__image"
+              - else
+                .profile-rating-item__placeholder= t("users.show.no_image")
 
             .profile-rating-item__content
-              %h3= rating.image.description.presence || t("users.show.no_description")
+              %h3= image.description.presence || t("users.show.no_description")
+
               %p
                 %span= "#{t('users.show.theme')}:"
-                = rating.image.task&.theme&.name || "—"
+                = image.task&.theme&.name || "—"
+
               %p
                 %span= "#{t('users.show.task')}:"
-                = rating.image.task&.title || "—"
+                = image.task&.title || "—"
 
             .profile-rating-item__score
               = rating.rating
