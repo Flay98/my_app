@@ -1,0 +1,88 @@
+.site-footer {
+    margin-top: auto;
+    border-top: 1px solid #e5e7eb;
+    background: #111827;
+    color: #d1d5db;
+}
+
+.site-footer__inner {
+    max-width: 1180px;
+    margin: 0 auto;
+    padding: 28px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.site-footer__brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: max-content;
+}
+
+.site-footer__brand-mark {
+    width: 36px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #2563eb, #7c3aed);
+    color: #ffffff;
+    font-weight: 800;
+    letter-spacing: -0.04em;
+}
+
+.site-footer__brand-text {
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 800;
+}
+
+.site-footer__info {
+    flex: 1;
+    text-align: center;
+}
+
+.site-footer__info p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.site-footer__copyright {
+    margin-top: 6px !important;
+    color: #9ca3af;
+    font-size: 13px !important;
+}
+
+.site-footer__links {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-width: max-content;
+}
+
+.site-footer__links a {
+    color: #d1d5db;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+.site-footer__links a:hover {
+    color: #ffffff;
+}
+
+@media (max-width: 760px) {
+    .site-footer__inner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .site-footer__links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+}
