@@ -1,11 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+expert_mobile_first:
+  user: expert
+  image: mobile_first
+  rating: 8
 
-one:
-  user: one
-  image: one
-  rating: 1
-
-two:
-  user: two
-  image: two
-  rating: 1
+admin_mobile_first:
+  user: admin
+  image: mobile_first
+  rating: 9

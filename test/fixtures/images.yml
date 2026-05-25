@@ -1,11 +1,14 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+mobile_first:
+  task: mobile_task
+  file_name: logo_1.jpg
+  description: Test mobile image
 
-one:
-  task: one
-  file_name: MyString
-  description: MyText
+mobile_second:
+  task: mobile_task
+  file_name: logo_1.jpg
+  description: Second test mobile image
 
-two:
-  task: two
-  file_name: MyString
-  description: MyText
+web_first:
+  task: web_task
+  file_name: logo_1.jpg
+  description: Test web image
