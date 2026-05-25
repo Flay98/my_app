@@ -1,2 +1,15 @@
 %footer.site-footer
-  %p Task Tracker Project © 2026
+  .site-footer__inner
+    .site-footer__brand
+      %span.site-footer__brand-mark TT
+      %span.site-footer__brand-text Task Tracker
+
+    .site-footer__info
+      %p Учебный Rails-проект для экспертной оценки дизайн-референсов.
+      %p.site-footer__copyright
+        = "© #{Time.current.year} Task Tracker"
+
+    .site-footer__links
+      = link_to t("shared.header.home"), root_path
+      = link_to t("shared.header.work"), work_path
+      = link_to t("shared.header.images"), images_path

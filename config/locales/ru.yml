@@ -11,6 +11,7 @@ ru:
       sign_out: "Выйти"
       profile: "Профиль"
       current_language: "ru"
+      images: "Изображения"
 
   main:
     index:
@@ -85,6 +86,10 @@ ru:
       sort_id_desc: "ID по убыванию"
       sort_rating_asc: "Средняя оценка по возрастанию"
       sort_rating_desc: "Средняя оценка по убыванию"
+      no_file: "Нет файла"
+      no_ratings: "Нет оценок"
+      no_description: "Без описания"
+      empty: "Изображения пока не добавлены."
 
     new:
       title: "Новое изображение"

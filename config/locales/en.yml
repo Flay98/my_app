@@ -40,6 +40,7 @@ en:
       sign_out: "Sign out"
       profile: "Profile"
       current_language: "en"
+      images: "Images"
 
   main:
     index:
@@ -119,18 +120,18 @@ en:
       title: "New image"
       back: "Back to images"
 
-      edit:
-        title: "Editing image"
-        show: "Show image"
-        back: "Back to images"
+    edit:
+      title: "Editing image"
+      show: "Show image"
+      back: "Back to images"
 
-      show:
-        title: "Image"
-        back: "Back to images"
-        edit: "Edit"
+    show:
+      title: "Image"
+      back: "Back to images"
+      edit: "Edit"
 
-      form:
-        task: "Task"
-        file_name: "File name"
-        description: "Description"
-        submit: "Save"
+    form:
+      task: "Task"
+      file_name: "File name"
+      description: "Description"
+      submit: "Save"

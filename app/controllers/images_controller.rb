@@ -1,5 +1,6 @@
 class ImagesController < ApplicationController
-  before_action :set_image, only: %i[ show edit update destroy ]
+  before_action :require_sign_in, except: %i[index show]
+  before_action :set_image, only: %i[edit update destroy]
 
   # GET /images or /images.json
   def index

@@ -1,21 +1,28 @@
 %header.site-header
-  %nav.site-nav
-    = link_to t(".home"), root_path
-    = link_to t(".work"), work_path
-    = link_to t(".help"), main_help_path
-    = link_to t(".contacts"), main_contacts_path
-    = link_to t(".about"), main_about_path
+  .site-header__inner
+    = link_to root_path, class: "site-header__brand" do
+      %span.site-header__brand-mark TT
+      %span.site-header__brand-text Task Tracker
 
-    - if signed_in?
-      %span= current_user.email
-      = link_to t(".profile"), current_user
-      = link_to t(".sign_out"), signout_path, data: { turbo_method: :delete }
-    - else
-      = link_to t(".sign_in"), signin_path
-      = link_to t(".sign_up"), signup_path
+    %nav.site-header__nav
+      = link_to t(".home"), root_path, class: "site-header__nav-link"
+      = link_to t(".work"), work_path, class: "site-header__nav-link"
+      = link_to "Images", images_path, class: "site-header__nav-link"
+      = link_to t(".help"), help_path, class: "site-header__nav-link"
+      = link_to t(".contacts"), contacts_path, class: "site-header__nav-link"
+      = link_to t(".about"), about_path, class: "site-header__nav-link"
 
-    %span.locale-switcher
-      = link_to "RU", url_for(locale: :ru)
-      |
-      = link_to "EN", url_for(locale: :en)
-      %strong= I18n.locale
+    .site-header__right
+      .site-header__locale
+        = link_to "RU", url_for(locale: :ru), class: "site-header__locale-link #{'is-active' if I18n.locale == :ru}"
+        = link_to "EN", url_for(locale: :en), class: "site-header__locale-link #{'is-active' if I18n.locale == :en}"
+
+      - if signed_in?
+        .site-header__user
+          %span.site-header__user-email= current_user.email
+          = link_to t(".profile"), current_user, class: "site-header__profile-link"
+          = link_to t(".sign_out"), signout_path, class: "site-header__auth-link site-header__auth-link--danger", data: { turbo_method: :delete }
+      - else
+        .site-header__auth
+          = link_to t(".sign_in"), signin_path, class: "site-header__auth-link"
+          = link_to t(".sign_up"), signup_path, class: "site-header__auth-link site-header__auth-link--primary"

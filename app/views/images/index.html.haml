@@ -1,60 +1,91 @@
-%h1= t(".title")
+.images-page
+  .images-page__header
+    .images-page__title-block
+      %h1= t(".title")
+      %p.images-page__subtitle
+        = "#{t('.total_count')}: #{@images_total_count}"
 
-.images-toolbar
-  %p
-    %strong= "#{t('.total_count')}:"
-    = @images_total_count
+    - if signed_in?
+      = link_to t(".new_image"), new_image_path, class: "images-page__new-button"
 
-  = form_with url: images_path, method: :get, local: true, class: "per-page-form" do |form|
-    = hidden_field_tag :sort, @sort
-    = form.label :per_page, t(".per_page")
-    = form.select :per_page,
-      options_for_select([["5", "5"], ["10", "10"], ["15", "15"]], @per_page),
-      {},
-      onchange: "this.form.submit()"
+  .images-toolbar
+    = form_with url: images_path, method: :get, local: true, class: "images-toolbar__form" do |form|
+      = hidden_field_tag :sort, @sort
 
-  = form_with url: images_path, method: :get, local: true, class: "sort-form" do |form|
-    = hidden_field_tag :per_page, @per_page
-    = form.label :sort, t(".sort_by")
-    = form.select :sort,
-      options_for_select([[t(".sort_id_asc"), "id_asc"], [t(".sort_id_desc"), "id_desc"], [t(".sort_rating_asc"), "rating_asc"], [t(".sort_rating_desc"), "rating_desc"]], @sort),
-      {},
-      onchange: "this.form.submit()"
+      .images-toolbar__field
+        = form.label :per_page, t(".per_page")
+        = form.select :per_page,
+          options_for_select([["5", "5"], ["10", "10"], ["15", "15"]], @per_page),
+          {},
+          onchange: "this.form.submit()"
 
-%table.table
-  %thead
-    %tr
-      %th= t(".id")
-      %th= t(".image")
-      %th= t(".description")
-      %th= t(".task")
-      %th= t(".theme")
-      %th= t(".avg_rating")
-      %th= t(".actions")
-  %tbody
-    - @images.each do |image|
-      %tr
-        %td= image.id
-      %td
-        - if image.photo.attached?
-          = image_tag image.photo, width: 120
-        - elsif image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
-          = image_tag asset_path("pictures/#{image.file_name}"), width: 120
-        - else
-          %span Нет файла
-        %td= image.description
-        %td= image.task&.title
-        %td= image.task&.theme&.name
-        %td= image.average_rating_text
-        %td
-          = link_to t(".show"), image
-          |
-          = link_to t(".edit"), edit_image_path(image)
-          |
-          = link_to t(".destroy"), image, data: { turbo_method: :delete, turbo_confirm: t(".confirm") }
+    = form_with url: images_path, method: :get, local: true, class: "images-toolbar__form" do |form|
+      = hidden_field_tag :per_page, @per_page
 
-.pagination-block
-  = paginate @images, params: { per_page: @per_page, sort: @sort }
+      .images-toolbar__field
+        = form.label :sort, t(".sort_by")
+        = form.select :sort,
+          options_for_select([[t(".sort_id_asc"), "id_asc"], [t(".sort_id_desc"), "id_desc"], [t(".sort_rating_asc"), "rating_asc"], [t(".sort_rating_desc"), "rating_desc"]], @sort),
+          {},
+          onchange: "this.form.submit()"
 
-%p
-  = link_to t(".new_image"), new_image_path
+  - if @images.any?
+    .images-grid
+      - @images.each do |image|
+        .image-card-item
+          .image-card-item__preview
+            - if image.photo.attached?
+              = image_tag image.photo, class: "image-card-item__image"
+            - elsif image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
+              = image_tag asset_path("pictures/#{image.file_name}"), class: "image-card-item__image"
+            - else
+              .image-card-item__placeholder
+                = t(".no_file")
+
+          .image-card-item__body
+            .image-card-item__top
+              %span.image-card-item__id
+                = "##{image.id}"
+
+              - rating = image.average_rating
+              - if rating.present?
+                %span.image-card-item__rating.image-card-item__rating--active
+                  = "#{t('.avg_rating')}: #{rating}"
+              - else
+                %span.image-card-item__rating
+                  = t(".no_ratings")
+
+            %h2.image-card-item__description
+              = image.description.presence || t(".no_description")
+
+            .image-card-item__meta
+              %p
+                %span= "#{t('.task')}:"
+                %strong= image.task&.title || "—"
+
+              %p
+                %span= "#{t('.theme')}:"
+                %strong= image.task&.theme&.name || "—"
+
+          - if signed_in?
+            .image-card-item__actions
+              = link_to image, class: "image-card-item__icon-link", title: t(".show") do
+                = image_tag "look.png", alt: t(".show"), class: "image-card-item__action-icon"
+
+              = link_to edit_image_path(image), class: "image-card-item__icon-link", title: t(".edit") do
+                = image_tag "edit.png", alt: t(".edit"), class: "image-card-item__action-icon"
+
+              = link_to image,
+                class: "image-card-item__icon-link image-card-item__icon-link--danger",
+                title: t(".destroy"),
+                data: { turbo_method: :delete, turbo_confirm: t(".confirm") } do
+                = image_tag "bucket.png", alt: t(".destroy"), class: "image-card-item__action-icon"
+
+    .pagination-block
+      = paginate @images, params: { per_page: @per_page, sort: @sort }
+
+  - else
+    .images-empty
+      %p= t(".empty")
+      - if signed_in?
+        = link_to t(".new_image"), new_image_path, class: "images-page__new-button"
