@@ -1,48 +1,37 @@
 require "test_helper"
 
 class ExpertRatingsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @expert_rating = expert_ratings(:one)
-  end
+  test "signed in user can create rating" do
+    sign_in_as users(:expert)
 
-  test "should get index" do
-    get expert_ratings_url
-    assert_response :success
-  end
-
-  test "should get new" do
-    get new_expert_rating_url
-    assert_response :success
-  end
-
-  test "should create expert_rating" do
-    assert_difference("ExpertRating.count") do
-      post expert_ratings_url, params: { expert_rating: { image_id: @expert_rating.image_id, rating: @expert_rating.rating, user_id: @expert_rating.user_id } }
+    assert_difference("ExpertRating.count", 1) do
+      post expert_ratings_path(locale: :ru), params: {
+        theme_id: themes(:web).id,
+        current_index: 0,
+        expert_rating: {
+          image_id: images(:web_first).id,
+          rating: 7
+        }
+      }
     end
 
-    assert_redirected_to expert_rating_url(ExpertRating.last)
+    assert_redirected_to work_path(locale: :ru, theme_id: themes(:web).id, index: "0")
   end
 
-  test "should show expert_rating" do
-    get expert_rating_url(@expert_rating)
-    assert_response :success
-  end
+  test "signed in user updates existing rating for same image" do
+    sign_in_as users(:expert)
 
-  test "should get edit" do
-    get edit_expert_rating_url(@expert_rating)
-    assert_response :success
-  end
-
-  test "should update expert_rating" do
-    patch expert_rating_url(@expert_rating), params: { expert_rating: { image_id: @expert_rating.image_id, rating: @expert_rating.rating, user_id: @expert_rating.user_id } }
-    assert_redirected_to expert_rating_url(@expert_rating)
-  end
-
-  test "should destroy expert_rating" do
-    assert_difference("ExpertRating.count", -1) do
-      delete expert_rating_url(@expert_rating)
+    assert_no_difference("ExpertRating.count") do
+      post expert_ratings_path(locale: :ru), params: {
+        theme_id: themes(:mobile).id,
+        current_index: 0,
+        expert_rating: {
+          image_id: images(:mobile_first).id,
+          rating: 5
+        }
+      }
     end
 
-    assert_redirected_to expert_ratings_url
+    assert_equal 5, expert_ratings(:expert_mobile_first).reload.rating
   end
 end

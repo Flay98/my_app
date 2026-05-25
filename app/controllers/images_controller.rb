@@ -97,7 +97,7 @@ class ImagesController < ApplicationController
       @image = Image.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+  # Only allow a list of trusted parameters through.
   def image_params
     params.require(:image).permit(:task_id, :file_name, :description, :photo)
   end

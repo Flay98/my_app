@@ -1,23 +1,21 @@
 require "test_helper"
 
 class MainControllerTest < ActionDispatch::IntegrationTest
-  test "should get index" do
-    get main_index_url
+  test "root page is available" do
+    get root_path(locale: :ru)
+
     assert_response :success
+    assert_select "body"
   end
 
-  test "should get help" do
-    get main_help_url
+  test "static pages are available" do
+    get help_path(locale: :ru)
     assert_response :success
-  end
 
-  test "should get contacts" do
-    get main_contacts_url
+    get contacts_path(locale: :ru)
     assert_response :success
-  end
 
-  test "should get about" do
-    get main_about_url
+    get about_path(locale: :ru)
     assert_response :success
   end
 end

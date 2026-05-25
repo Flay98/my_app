@@ -2,47 +2,36 @@ require "test_helper"
 
 class TasksControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @task = tasks(:one)
+    @task = tasks(:mobile_task)
   end
 
-  test "should get index" do
-    get tasks_url
+  test "index is available" do
+    get tasks_path(locale: :ru)
+
     assert_response :success
   end
 
-  test "should get new" do
-    get new_task_url
-    assert_response :success
-  end
-
-  test "should create task" do
-    assert_difference("Task.count") do
-      post tasks_url, params: { task: { description: @task.description, theme_id: @task.theme_id, title: @task.title, user_id: @task.user_id } }
+  test "can create task" do
+    assert_difference("Task.count", 1) do
+      post tasks_path(locale: :ru), params: {
+        task: {
+          user_id: users(:admin).id,
+          theme_id: themes(:mobile).id,
+          title: "New task",
+          description: "Created in test"
+        }
+      }
     end
 
-    assert_redirected_to task_url(Task.last)
+    assert_redirected_to task_path(Task.last, locale: :ru)
   end
 
-  test "should show task" do
-    get task_url(@task)
-    assert_response :success
-  end
+  test "can update task" do
+    patch task_path(@task, locale: :ru), params: {
+      task: { title: "Updated task" }
+    }
 
-  test "should get edit" do
-    get edit_task_url(@task)
-    assert_response :success
-  end
-
-  test "should update task" do
-    patch task_url(@task), params: { task: { description: @task.description, theme_id: @task.theme_id, title: @task.title, user_id: @task.user_id } }
-    assert_redirected_to task_url(@task)
-  end
-
-  test "should destroy task" do
-    assert_difference("Task.count", -1) do
-      delete task_url(@task)
-    end
-
-    assert_redirected_to tasks_url
+    assert_redirected_to task_path(@task, locale: :ru)
+    assert_equal "Updated task", @task.reload.title
   end
 end

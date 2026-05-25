@@ -8,6 +8,6 @@ class CreateExpertRatings < ActiveRecord::Migration[7.2]
       t.timestamps
     end
 
-    add_index :expert_ratings, [:user_id, :image_id], unique: true
+    add_index :expert_ratings, [ :user_id, :image_id ], unique: true
   end
 end

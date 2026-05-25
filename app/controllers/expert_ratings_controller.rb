@@ -68,7 +68,7 @@ class ExpertRatingsController < ApplicationController
       @expert_rating = ExpertRating.find(params[:id])
     end
 
-    # Only allow a list of trusted parameters through.
+  # Only allow a list of trusted parameters through.
   def expert_rating_params
     params.require(:expert_rating).permit(:image_id, :rating)
   end

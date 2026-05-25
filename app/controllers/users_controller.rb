@@ -79,6 +79,4 @@ class UsersController < ApplicationController
         :avatar
       )
   end
-
-
 end

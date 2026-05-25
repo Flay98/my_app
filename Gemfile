@@ -43,6 +43,8 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+
+  gem "bundler-audit", require: false
 end
 
 group :development do
@@ -51,6 +53,8 @@ group :development do
 end
 
 group :test do
+  gem "minitest", "< 6"
+  gem "simplecov", require: false
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
