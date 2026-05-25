@@ -8,6 +8,9 @@ class UsersController < ApplicationController
 
   # GET /users/1 or /users/1.json
   def show
+    @ratings_count = @user.expert_ratings.count
+    @average_given_rating = @user.expert_ratings.average(:rating)&.round(2)
+    @recent_ratings = @user.expert_ratings.includes(image: { task: :theme }).order(created_at: :desc).limit(5)
   end
 
   # GET /users/new
@@ -68,4 +71,6 @@ class UsersController < ApplicationController
     def user_params
       params.require(:user).permit(:username, :email, :first_name, :last_name, :password, :password_confirmation)
     end
+
+
 end

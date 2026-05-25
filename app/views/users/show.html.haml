@@ -1,27 +1,58 @@
-%p{style: "color: green"}= notice
+.profile-page
+  .profile-hero
+    .profile-hero__avatar
+      = gravatar_for @user, size: 120
 
-.show_user
-  %h1
-    = gravatar_for @user
-    = @user.username
+    .profile-hero__content
+      %p.profile-hero__label= t("users.show.profile_label")
+      %h1= @user.username
+      %p.profile-hero__email= @user.email
 
-  %p
-    %strong Email:
-    = @user.email
+      .profile-hero__actions
+        = link_to t("users.show.proceed_to_work"), work_path, class: "profile-button profile-button--primary"
+        = link_to t("users.show.back_to_images"), images_path, class: "profile-button profile-button--secondary"
 
-  %p
-    %strong First name:
-    = @user.first_name
+  .profile-stats
+    .profile-stat-card
+      %span.profile-stat-card__value= @ratings_count
+      %span.profile-stat-card__label= t("users.show.ratings_count")
 
-  %p
-    %strong Last name:
-    = @user.last_name
+    .profile-stat-card
+      %span.profile-stat-card__value= @average_given_rating || t("users.show.no_ratings")
+      %span.profile-stat-card__label= t("users.show.average_given_rating")
 
-  = link_to "Proceed to work!", work_path, class: "btn btn-lg btn-primary"
+    .profile-stat-card
+      %span.profile-stat-card__value= @user.created_at.strftime("%d.%m.%Y")
+      %span.profile-stat-card__label= t("users.show.member_since")
 
-%div
-  = link_to "Edit this user", edit_user_path(@user)
-  |
-  = link_to "Back to users", users_path
+  .profile-section
+    .profile-section__header
+      %h2= t("users.show.recent_ratings")
 
-  = button_to "Destroy this user", @user, method: :delete
+    - if @recent_ratings.any?
+      .profile-ratings-list
+        - @recent_ratings.each do |rating|
+          .profile-rating-item
+            .profile-rating-item__preview
+              - image = rating.image
+              - if image.photo.attached?
+                = image_tag image.photo, class: "profile-rating-item__image"
+              - elsif image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
+                = image_tag asset_path("pictures/#{image.file_name}"), class: "profile-rating-item__image"
+              - else
+                .profile-rating-item__placeholder= t("users.show.no_image")
+
+            .profile-rating-item__content
+              %h3= rating.image.description.presence || t("users.show.no_description")
+              %p
+                %span= "#{t('users.show.theme')}:"
+                = rating.image.task&.theme&.name || "—"
+              %p
+                %span= "#{t('users.show.task')}:"
+                = rating.image.task&.title || "—"
+
+            .profile-rating-item__score
+              = rating.rating
+    - else
+      .profile-empty
+        %p= t("users.show.no_recent_ratings")

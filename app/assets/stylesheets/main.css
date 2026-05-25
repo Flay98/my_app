@@ -1,5 +1,4 @@
 .main-hero {
-    min-height: calc(100vh - 220px);
     display: flex;
     align-items: center;
     justify-content: center;
