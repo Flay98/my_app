@@ -37,10 +37,9 @@
         - @top_images.each do |image|
           .dashboard-top-card
             .dashboard-top-card__preview
-              - if image.photo.attached?
-                = image_tag image.photo, class: "dashboard-top-card__image"
-              - elsif image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
-                = image_tag asset_path("pictures/#{image.file_name}"), class: "dashboard-top-card__image"
+              - image_src = image_source_for(image)
+              - if image_src.present?
+                = image_tag image_src, class: "dashboard-top-card__image"
               - else
                 .dashboard-top-card__placeholder= t(".no_image")
 

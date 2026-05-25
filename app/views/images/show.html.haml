@@ -5,13 +5,12 @@
 
   .image-show-card
     .image-show-card__preview
-      - if @image.photo.attached?
-        = image_tag @image.photo, class: "image-show-card__image"
-      - elsif @image.file_name.present? && Rails.application.assets.find_asset("pictures/#{@image.file_name}").present?
-        = image_tag asset_path("pictures/#{@image.file_name}"), class: "image-show-card__image"
+      - image_src = image_source_for(@image)
+      - if image_src.present?
+        = image_tag image_src, class: "image-show-card__image"
       - else
         .image-show-card__placeholder
-          = t("images.index.no_file", default: "Нет файла")
+          = t("images.index.no_file")
 
     .image-show-card__content
       %p

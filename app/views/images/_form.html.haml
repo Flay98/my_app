@@ -3,10 +3,9 @@
     %h2= t("images.form.preview", default: "Превью")
 
     .image-form-preview
-      - if image.persisted? && image.photo.attached?
-        = image_tag image.photo, class: "image-form-preview__image"
-      - elsif image.persisted? && image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
-        = image_tag asset_path("pictures/#{image.file_name}"), class: "image-form-preview__image"
+      - image_src = image.persisted? ? image_source_for(image) : nil
+      - if image_src.present?
+        = image_tag image_src, class: "image-form-preview__image"
       - else
         .image-form-preview__placeholder
           %span= t("images.form.no_preview", default: "Изображение пока не выбрано")

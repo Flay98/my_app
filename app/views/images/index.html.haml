@@ -40,10 +40,9 @@
           data: (clickable ? { href: work_url } : {})
         }
           .image-card-item__preview
-            - if image.photo.attached?
-              = image_tag image.photo, class: "image-card-item__image"
-            - elsif image.file_name.present? && Rails.application.assets.find_asset("pictures/#{image.file_name}").present?
-              = image_tag asset_path("pictures/#{image.file_name}"), class: "image-card-item__image"
+            - image_src = image_source_for(image)
+            - if image_src.present?
+              = image_tag image_src, class: "image-card-item__image"
             - else
               .image-card-item__placeholder
                 = t(".no_file")
