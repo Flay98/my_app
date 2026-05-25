@@ -1,35 +1,46 @@
-= form_with(model: user) do |form|
-  - if user.errors.any?
-    %div{style: "color: red"}
-      %h2= "#{pluralize(user.errors.count, "error")} prohibited this user from being saved:"
+.auth-page
+  .auth-card.auth-card--wide
+    .auth-card__header
+      .auth-card__mark TT
+      %h1= t("users.new.title")
+      %p= t("users.new.subtitle")
 
-      %ul
-        - user.errors.each do |error|
-          %li= error.full_message
+    = form_with(model: user, class: "auth-form") do |form|
+      - if user.errors.any?
+        .auth-errors
+          %h2= t("users.form.errors_title")
+          %ul
+            - user.errors.each do |error|
+              %li= error.full_message
 
-  %div
-    = form.label :username, t(".username"), style: "display: block"
-    = form.text_field :username
+      .auth-form__grid
+        .auth-form__field
+          = form.label :username, t("users.form.username")
+          = form.text_field :username, class: "auth-form__input", placeholder: "designer01"
 
-  %div
-    = form.label :email, t(".email"), style: "display: block"
-    = form.email_field :email
+        .auth-form__field
+          = form.label :email, t("users.form.email")
+          = form.email_field :email, class: "auth-form__input", placeholder: "example@mail.com"
 
-  %div
-    = form.label :first_name, t(".first_name"), style: "display: block"
-    = form.text_field :first_name
+        .auth-form__field
+          = form.label :first_name, t("users.form.first_name")
+          = form.text_field :first_name, class: "auth-form__input", placeholder: t("users.form.first_name")
 
-  %div
-    = form.label :last_name, t(".last_name"), style: "display: block"
-    = form.text_field :last_name
+        .auth-form__field
+          = form.label :last_name, t("users.form.last_name")
+          = form.text_field :last_name, class: "auth-form__input", placeholder: t("users.form.last_name")
 
-  %div
-    = form.label :password, t(".password"), style: "display: block"
-    = form.password_field :password
+        .auth-form__field
+          = form.label :password, t("users.form.password")
+          = form.password_field :password, class: "auth-form__input", placeholder: "••••••••"
 
-  %div
-    = form.label :password_confirmation, t(".password_confirmation"), style: "display: block"
-    = form.password_field :password_confirmation
+        .auth-form__field
+          = form.label :password_confirmation, t("users.form.password_confirmation")
+          = form.password_field :password_confirmation, class: "auth-form__input", placeholder: "••••••••"
 
-  %div
-    = form.submit t(".create_account")
+      .auth-form__actions
+        = form.submit t("users.form.create_account"), class: "auth-form__submit"
+
+    .auth-card__footer
+      %span= t("users.new.have_account")
+      = link_to t("users.new.sign_in"), signin_path

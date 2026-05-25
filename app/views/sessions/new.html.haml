@@ -1,13 +1,22 @@
-%h1= t(".title")
+.auth-page
+  .auth-card
+    .auth-card__header
+      .auth-card__mark TT
+      %h1= t(".title")
+      %p= t(".subtitle", default: "Войдите в аккаунт, чтобы оценивать изображения и работать с галереей.")
 
-= form_with(url: signin_path, scope: :session, local: true) do |form|
-  %div
-    = form.label :email, t(".email")
-    = form.email_field :email
+    = form_with(url: signin_path, scope: :session, local: true, class: "auth-form") do |form|
+      .auth-form__field
+        = form.label :email, t(".email")
+        = form.email_field :email, class: "auth-form__input", placeholder: "example@mail.com"
 
-  %div
-    = form.label :password, t(".password")
-    = form.password_field :password
+      .auth-form__field
+        = form.label :password, t(".password")
+        = form.password_field :password, class: "auth-form__input", placeholder: "••••••••"
 
-  %div
-    = form.submit t(".submit")
+      .auth-form__actions
+        = form.submit t(".submit"), class: "auth-form__submit"
+
+    .auth-card__footer
+      %span= t(".no_account", default: "Ещё нет аккаунта?")
+      = link_to t(".sign_up", default: "Зарегистрироваться"), signup_path

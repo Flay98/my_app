@@ -61,11 +61,19 @@ en:
   sessions:
     new:
       title: "Sign in"
+      subtitle: "Sign in to rate images and work with the gallery."
       email: "Email"
       password: "Password"
       submit: "Sign in"
+      no_account: "No account yet?"
+      sign_up: "Sign up"
 
   users:
+    new:
+      title: "Sign up"
+      subtitle: "Create an account to upload images and provide expert ratings."
+      have_account: "Already have an account?"
+      sign_in: "Sign in"
     form:
       username: "Username"
       email: "Email"
@@ -74,11 +82,7 @@ en:
       password: "Password"
       password_confirmation: "Password confirmation"
       create_account: "Create account"
-    show:
-      email: "Email"
-      first_name: "First name"
-      last_name: "Last name"
-      proceed_to_work: "Proceed to work"
+      errors_title: "Please check the form"
 
   work:
     index:

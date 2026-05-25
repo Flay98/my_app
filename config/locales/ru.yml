@@ -32,11 +32,19 @@ ru:
   sessions:
     new:
       title: "Вход"
+      subtitle: "Войдите в аккаунт, чтобы оценивать изображения и работать с галереей."
       email: "Email"
       password: "Пароль"
       submit: "Войти"
+      no_account: "Ещё нет аккаунта?"
+      sign_up: "Зарегистрироваться"
 
   users:
+    new:
+      title: "Регистрация"
+      subtitle: "Создайте аккаунт, чтобы добавлять изображения и ставить экспертные оценки."
+      have_account: "Уже есть аккаунт?"
+      sign_in: "Войти"
     form:
       username: "Логин"
       email: "Email"
@@ -45,6 +53,7 @@ ru:
       password: "Пароль"
       password_confirmation: "Подтверждение пароля"
       create_account: "Создать аккаунт"
+      errors_title: "Проверьте данные формы"
     show:
       email: "Email"
       first_name: "Имя"
